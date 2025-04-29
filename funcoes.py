@@ -9,14 +9,14 @@ def rolar_dados(qtd_dados):
 
 
 def guardar_dado(dados_rolados, dados_no_estoque, dado_para_guardar):
-    # Acessa o valor do dado pelo índice
-    dado = dados_rolados[dado_para_guardar]
+    novo_dado = dados_rolados[dado_para_guardar]
     
-    # Adiciona o dado ao estoque
-    dados_no_estoque.append(dado)
+    # Cria novas listas 
+    nova_lista_rolados = []
+    for i in range(len(dados_rolados)):
+        if i != dado_para_guardar:
+            nova_lista_rolados.append(dados_rolados[i])
     
-    # Remove o dado da lista de dados rolados usando o valor
-    dados_rolados.remove(dado)
+    nova_lista_estoque = dados_no_estoque + [novo_dado]
     
-    # Retorna as listas atualizadas
-    return [dados_rolados, dados_no_estoque]
+    return [nova_lista_rolados, nova_lista_estoque]
