@@ -32,3 +32,20 @@ def calcula_pontos_soma(dados):
     for dado in dados:
         total += dado
     return total  # <-- errado! Sai no primeiro loop
+
+def calcula_pontos_sequencia_baixa(dados):
+    unicos = list(set(dados))  
+    sequencias = [
+        [1, 2, 3, 4],
+        [2, 3, 4, 5],
+        [3, 4, 5, 6]
+    ]
+    for seq in sequencias:
+        tem_sequencia = True
+        for num in seq:
+            if num not in unicos:
+                tem_sequencia = False
+                break
+        if tem_sequencia:
+            return 15
+    return 0
