@@ -9,29 +9,21 @@ def rolar_dados(qtd_dados):
 
 
 def guardar_dado(dados_rolados, dados_no_estoque, dado_para_guardar):
-    novo_dado = dados_rolados[dado_para_guardar]
+    # Acessa o valor do dado pelo índice
+    dado = dados_rolados[dado_para_guardar]
     
-    # Cria novas listas 
-    nova_lista_rolados = []
-    for i in range(len(dados_rolados)):
-        if i != dado_para_guardar:
-            nova_lista_rolados.append(dados_rolados[i])
+    # Adiciona o dado ao estoque
+    dados_no_estoque.append(dado)
     
-    nova_lista_estoque = dados_no_estoque + [novo_dado]
+    # Remove o dado da lista de dados rolados usando o valor
+    dados_rolados.remove(dado)
     
-    return [nova_lista_rolados, nova_lista_estoque]
+    # Retorna as listas atualizadas
+    return [dados_rolados, dados_no_estoque]
 
-def remover_dado(dados_rolados, dados_no_estoque, dado_para_remover):
-    # Valor do dado que será removido do estoque
-    dado = dados_no_estoque[dado_para_remover]
-    
-    # Cria nova lista de estoque, sem o item no índice dado_para_remover
-    nova_lista_estoque = []
-    for i in range(len(dados_no_estoque)):
-        if i != dado_para_remover:
-            nova_lista_estoque.append(dados_no_estoque[i])
-    
-    # Adiciona o dado de volta aos dados rolados
-    nova_lista_rolados = dados_rolados + [dado]
-    
-    return [nova_lista_rolados, nova_lista_estoque]
+def calcula_pontos_regra_simples(dados):
+    pontos = {i: 0 for i in range(1, 7)}  # Inicializa dicionário com 0 para cada face
+    for dado in dados:
+        if 1 <= dado <= 6:
+            pontos[dado] += dado  # Soma o valor do dado à face correspondente
+    return pontos
