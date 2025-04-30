@@ -31,4 +31,4 @@ def calcula_pontos_soma(dados):
     total = 0
     for dado in dados:
         total += dado
-        return total  # <-- errado! Sai no primeiro loop
+    return total  # <-- errado! Sai no primeiro loop
