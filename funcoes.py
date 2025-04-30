@@ -27,3 +27,8 @@ def calcula_pontos_regra_simples(dados):
         if 1 <= dado <= 6:
             pontos[dado] += dado  # Soma o valor do dado à face correspondente
     return pontos
+def calcula_pontos_soma(dados):
+    total=0
+    for dado in dados:
+        total+=dado
+        return total
