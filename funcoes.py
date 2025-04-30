@@ -49,3 +49,19 @@ def calcula_pontos_sequencia_baixa(dados):
         if tem_sequencia:
             return 15
     return 0
+
+def calcula_pontos_sequencia_alta(dados):
+    unicos = list(set(dados))  
+    sequencias = [
+        [1, 2, 3, 4, 5],
+        [2, 3, 4, 5, 6]
+    ]
+    for seq in sequencias:
+        tem_sequencia = True
+        for num in seq:
+            if num not in unicos:
+                tem_sequencia = False
+                break
+        if tem_sequencia:
+            return 30
+    return 0
