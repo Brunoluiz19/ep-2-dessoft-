@@ -128,3 +128,28 @@ def calcula_pontos_quadra(dados):
             return soma
         
     return 0
+
+def calcula_pontos_quina(dados):
+    valores_unicos = []
+    contagens = []
+
+    for i in range(len(dados)):
+        valor = dados[i]
+        encontrado = False
+
+        for j in range(len(valores_unicos)):
+            if valores_unicos[j] == valor:
+                contagens[j] += 1
+                encontrado = True
+                break
+
+        if not encontrado:
+            valores_unicos.append(valor)
+            contagens.append(1)
+
+    # Verifica se alguma contagem é pelo menos 5
+    for i in range(len(contagens)):
+        if contagens[i] >= 5:
+            return 50
+
+    return 0
