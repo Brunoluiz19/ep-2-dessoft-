@@ -103,29 +103,28 @@ def calcula_pontos_quadra(dados):
     valores_unicos = []
     contagens = []
 
-    # Conta quantas vezes cada número aparece
-
+    # Conta as ocorrências de cada valor
     for i in range(len(dados)):
         valor = dados[i]
-        ja_existe = False
+        encontrado = False
 
         for j in range(len(valores_unicos)):
             if valores_unicos[j] == valor:
                 contagens[j] += 1
-                ja_existe = True
+                encontrado = True
                 break
 
-        if not ja_existe:
+        if not encontrado:
             valores_unicos.append(valor)
             contagens.append(1)
 
-    # Verifica se alguma contagem é igual a 4
+    # Verifica se existe algum valor com 4 ou mais ocorrências
     for i in range(len(contagens)):
-        if contagens[i] == 4:
-            # Soma todos os dados manualmente
+        if contagens[i] >= 4:
+            # Soma todos os dados
             soma = 0
-            for k in range(5):
+            for k in range(len(dados)):
                 soma += dados[k]
             return soma
-
+        
     return 0
