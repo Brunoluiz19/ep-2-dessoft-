@@ -98,3 +98,34 @@ def calcula_pontos_full_house(dados):
             return soma
     
     return 0
+
+def calcula_pontos_quadra(dados):
+    valores_unicos = []
+    contagens = []
+
+    # Conta quantas vezes cada número aparece
+
+    for i in range(5):
+        valor = dados[i]
+        ja_existe = False
+
+        for j in range(len(valores_unicos)):
+            if valores_unicos[j] == valor:
+                contagens[j] += 1
+                ja_existe = True
+                break
+
+        if not ja_existe:
+            valores_unicos.append(valor)
+            contagens.append(1)
+
+    # Verifica se alguma contagem é igual a 4
+    for i in range(len(contagens)):
+        if contagens[i] == 4:
+            # Soma todos os dados manualmente
+            soma = 0
+            for k in range(5):
+                soma += dados[k]
+            return soma
+
+    return 0
