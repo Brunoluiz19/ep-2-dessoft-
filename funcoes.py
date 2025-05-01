@@ -105,7 +105,7 @@ def calcula_pontos_quadra(dados):
 
     # Conta quantas vezes cada número aparece
 
-    for i in range(5):
+    for i in range(len(dados)):
         valor = dados[i]
         ja_existe = False
 
