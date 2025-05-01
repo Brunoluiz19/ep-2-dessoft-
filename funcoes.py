@@ -65,3 +65,36 @@ def calcula_pontos_sequencia_alta(dados):
         if tem_sequencia:
             return 30
     return 0
+
+def calcula_pontos_full_house(dados):
+    # Inicializa listas para guardar os valores únicos e suas contagens
+    valores_unicos = []
+    contagens = []
+
+    # Conta quantas vezes cada número aparece
+    for i in range(5):
+        valor = dados[i]
+        ja_existe = False
+
+        # Verifica se o valor já está na lista de valores únicos
+        for j in range(len(valores_unicos)):
+            if valores_unicos[j] == valor:
+                contagens[j] += 1
+                ja_existe = True
+                break
+        
+        # Se for a primeira vez que aparece, adiciona à lista
+        if not ja_existe:
+            valores_unicos.append(valor)
+            contagens.append(1)
+
+    # Verifica se há exatamente dois grupos: um com 3 e outro com 2
+    if len(contagens) == 2:
+        if (contagens[0] == 3 and contagens[1] == 2) or (contagens[0] == 2 and contagens[1] == 3):
+            # Calcula a soma dos dados manualmente
+            soma = 0
+            for i in range(5):
+                soma += dados[i]
+            return soma
+    
+    return 0
