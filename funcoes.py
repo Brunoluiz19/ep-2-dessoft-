@@ -22,25 +22,29 @@ def rolar_dados(qtd_dados):
         dado = random.randint(1, 6)
         resultado.append(dado)
     return resultado
-def remover_dado(dados_rolados, dados_no_estoque, indice_para_remover):
-    # Verifica se o índice para remover é válido
-    if 0 <= indice_para_remover < len(dados_no_estoque):
-        dado_removido = dados_no_estoque.pop(indice_para_remover)  # Remove o dado da lista de estoque
-        dados_rolados.append(dado_removido)  # Adiciona o dado na lista de dados rolados
-    return [dados_rolados, dados_no_estoque]
-
+# Função de guardar dado ajustada
 def guardar_dado(dados_rolados, dados_no_estoque, dado_para_guardar):
-    # Acessa o valor do dado pelo índice
+    if dado_para_guardar < 0 or dado_para_guardar >= len(dados_rolados):
+        print("Índice inválido. Tente novamente.")
+        return [dados_rolados, dados_no_estoque]
+    
     dado = dados_rolados[dado_para_guardar]
-    
-    # Adiciona o dado ao estoque
     dados_no_estoque.append(dado)
-    
-    # Remove o dado da lista de dados rolados usando o valor
     dados_rolados.remove(dado)
     
-    # Retorna as listas atualizadas
     return [dados_rolados, dados_no_estoque]
+
+# Função de remover dado ajustada
+def remover_dado(dados_rolados, dados_no_estoque, indice_para_remover):
+    if indice_para_remover < 0 or indice_para_remover >= len(dados_no_estoque):
+        print("Índice inválido. Tente novamente.")
+        return [dados_rolados, dados_no_estoque]
+    
+    dado_removido = dados_no_estoque.pop(indice_para_remover)
+    dados_rolados.append(dado_removido)
+    
+    return [dados_rolados, dados_no_estoque]
+
 
 def calcula_pontos_regra_simples(dados):
     pontos = {i: 0 for i in range(1, 7)}  # Inicializa dicionário com 0 para cada face
