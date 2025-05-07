@@ -1,28 +1,33 @@
 import random
 def imprime_cartela(cartela):
     print("Cartela de Pontos:")
-    print("-" * 35)
-    
-    print("Regra Simples:")
+    print("-"*25)    
     for i in range(1, 7):
-        valor = cartela['regra_simples'].get(i, None)
-        pontos = f"{valor:02}" if valor != -1 else "  "
-        print(f"{i:<2} - Pontos: {pontos}")
-
-    print("\nRegra Avançada:")
-    for nome, valor in cartela['regra_avancada'].items():
-        pontos = f"{valor:02}" if valor != -1 else "  "
-        print(f"{nome:<16} - Pontos: {pontos}")
+        filler = " " * (15 - len(str(i)))
+        if cartela['regra_simples'][i] != -1:
+            print(f"| {i}: {filler}| {cartela['regra_simples'][i]:02} |")
+        else:
+            print(f"| {i}: {filler}|    |")
+    for i in cartela['regra_avancada'].keys():
+        filler = " " * (15 - len(str(i)))
+        if cartela['regra_avancada'][i] != -1:
+            print(f"| {i}: {filler}| {cartela['regra_avancada'][i]:02} |")
+        else:
+            print(f"| {i}: {filler}|    |")
+    print("-"*25)
     
-    print("-" * 35)
-
 def rolar_dados(qtd_dados):
     resultado = []
     for i in range(qtd_dados):
         dado = random.randint(1, 6)
         resultado.append(dado)
     return resultado
-
+def remover_dado(dados_rolados, dados_no_estoque, indice_para_remover):
+    # Verifica se o índice para remover é válido
+    if 0 <= indice_para_remover < len(dados_no_estoque):
+        dado_removido = dados_no_estoque.pop(indice_para_remover)  # Remove o dado da lista de estoque
+        dados_rolados.append(dado_removido)  # Adiciona o dado na lista de dados rolados
+    return [dados_rolados, dados_no_estoque]
 
 def guardar_dado(dados_rolados, dados_no_estoque, dado_para_guardar):
     # Acessa o valor do dado pelo índice
@@ -196,24 +201,3 @@ def faz_jogada(dados, categoria, cartela_de_pontos):
 
     return cartela_de_pontos
 
-def verificar_vencedor(cartela1, cartela2):
-    def pontuacao_total(cartela):
-        total = sum(valor for valor in cartela['regra_simples'].values() if valor != -1)
-        total += sum(valor for valor in cartela['regra_avancada'].values() if valor != -1)
-        return total
-
-    pontos1 = pontuacao_total(cartela1)
-    pontos2 = pontuacao_total(cartela2)
-
-    print(f"\nPontuação total do Jogador 1: {pontos1}")
-    print(f"Pontuação total do Jogador 2: {pontos2}")
-
-    if pontos1 > pontos2:
-        print("\nJogador 1 venceu!")
-        return "Jogador 1"
-    elif pontos2 > pontos1:
-        print("\nJogador 2 venceu!")
-        return "Jogador 2"
-    else:
-        print("\nEmpate!")
-        return "Empate"
