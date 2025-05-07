@@ -1,21 +1,21 @@
 import random
 def imprime_cartela(cartela):
     print("Cartela de Pontos:")
-    print("-"*25)    
-    for i in range(1, 7):
-        filler = " " * (15 - len(str(i)))
-        if cartela['regra_simples'][i] != -1:
-            print(f"| {i}: {filler}| {cartela['regra_simples'][i]:02} |")
-        else:
-            print(f"| {i}: {filler}|    |")
-    for i in cartela['regra_avancada'].keys():
-        filler = " " * (15 - len(str(i)))
-        if cartela['regra_avancada'][i] != -1:
-            print(f"| {i}: {filler}| {cartela['regra_avancada'][i]:02} |")
-        else:
-            print(f"| {i}: {filler}|    |")
-    print("-"*25)
+    print("-" * 35)
     
+    print("Regra Simples:")
+    for i in range(1, 7):
+        valor = cartela['regra_simples'].get(i, None)
+        pontos = f"{valor:02}" if valor != -1 else "  "
+        print(f"{i:<2} - Pontos: {pontos}")
+
+    print("\nRegra Avançada:")
+    for nome, valor in cartela['regra_avancada'].items():
+        pontos = f"{valor:02}" if valor != -1 else "  "
+        print(f"{nome:<16} - Pontos: {pontos}")
+    
+    print("-" * 35)
+
 def rolar_dados(qtd_dados):
     resultado = []
     for i in range(qtd_dados):
@@ -169,6 +169,12 @@ def calcula_pontos_quina(dados):
             return 50
 
     return 0
+def calcula_pontos_soma(dados):
+    soma = 0
+    for valor in dados:
+        soma += valor
+    return soma
+
 def calcula_pontos_regra_avancada(dados):
     return {
         'cinco_iguais': calcula_pontos_quina(dados),
@@ -178,6 +184,7 @@ def calcula_pontos_regra_avancada(dados):
         'sequencia_alta': calcula_pontos_sequencia_alta(dados),
         'sequencia_baixa': calcula_pontos_sequencia_baixa(dados)
     }
+
 def faz_jogada(dados, categoria, cartela_de_pontos):   
     if categoria.isdigit() and int(categoria) in cartela_de_pontos['regra_simples']:
         categoria_int = int(categoria)
@@ -189,3 +196,24 @@ def faz_jogada(dados, categoria, cartela_de_pontos):
 
     return cartela_de_pontos
 
+def verificar_vencedor(cartela1, cartela2):
+    def pontuacao_total(cartela):
+        total = sum(valor for valor in cartela['regra_simples'].values() if valor != -1)
+        total += sum(valor for valor in cartela['regra_avancada'].values() if valor != -1)
+        return total
+
+    pontos1 = pontuacao_total(cartela1)
+    pontos2 = pontuacao_total(cartela2)
+
+    print(f"\nPontuação total do Jogador 1: {pontos1}")
+    print(f"Pontuação total do Jogador 2: {pontos2}")
+
+    if pontos1 > pontos2:
+        print("\nJogador 1 venceu!")
+        return "Jogador 1"
+    elif pontos2 > pontos1:
+        print("\nJogador 2 venceu!")
+        return "Jogador 2"
+    else:
+        print("\nEmpate!")
+        return "Empate"
